@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asking for what you need, while remember why you care</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Karla:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FBF8F2;
+    --ink: #2C2A25;
+    --ink-soft: #5B564C;
+    --sage: #2F5D4E;
+    --sage-tint: #E4EEE8;
+    --gold: #C8871A;
+    --gold-tint: #FBEFD7;
+    --berry: #A5405F;
+    --berry-tint: #F5E3E9;
+    --line: #E7E0D3;
+    --shadow: 0 6px 18px rgba(44,42,37,0.07), 0 1px 3px rgba(44,42,37,0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 12% -5%, rgba(47,93,78,0.06), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 100% 10%, rgba(200,135,26,0.06), transparent 55%),
+      var(--paper);
+    color: var(--ink);
+    font-family: 'Karla', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .fraunces { font-family: 'Fraunces', serif; }
+
+  .wrap{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 72px 24px 40px;
+  }
+
+  /* ---------- HERO ---------- */
+  .eyebrow{
+    display:inline-block;
+    background: var(--sage-tint);
+    color: var(--sage);
+    font-family: 'Karla', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 999px;
+    margin-bottom: 26px;
+  }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em{
+    font-style: italic;
+    color: var(--sage);
+    font-weight: 600;
+  }
+
+  .hero p.sub{
+    font-size: 1.09rem;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 0 6px;
+  }
+
+  .byline{
+    margin-top: 22px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section.block{
+    margin-top: 64px;
+  }
+
+  .tag{
+    display:block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 0.98rem;
+    margin-bottom: 6px;
+  }
+
+  h2.section-title{
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 0 0 20px;
+    padding-bottom: 18px;
+    border-bottom: 2px solid var(--line);
+  }
+
+  /* ---------- PROSE CARDS ---------- */
+  .card{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-bottom: 22px;
+  }
+
+  .card p{ margin: 0 0 14px; }
+  .card p:last-child{ margin-bottom: 0; }
+
+  .card strong { color: var(--ink); }
+
+  /* ---------- FLIP CARD GRID ---------- */
+  .flip-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 8px;
+  }
+
+  .flip-card{
+    perspective: 1200px;
+    height: 230px;
+    cursor: pointer;
+    transition: height 0.3s ease;
+  }
+  .flip-card.expanded{
+    height: 340px;
+  }
+  .flip-card:focus-visible .flip-inner{
+    outline: 2px solid var(--sage);
+    outline-offset: 3px;
+  }
+
+  .flip-inner{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+    border-radius: 16px;
+  }
+
+  .flip-card.flipped .flip-inner{
+    transform: rotateY(180deg);
+  }
+
+  .flip-face{
+    position: absolute;
+    inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 16px;
+    padding: 20px 20px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .expand-btn{
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: #fff;
+    font-family: 'Karla', sans-serif;
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 6px 12px;
+    margin-top: auto;
+    align-self: flex-start;
+    cursor: pointer;
+  }
+  .expand-btn:hover{ background: rgba(255,255,255,0.32); }
+  .sage-card .expand-btn{ }
+  .berry-card .expand-btn{ }
+
+  .flip-front{
+    border: 1px solid var(--line);
+  }
+  .flip-back{
+    transform: rotateY(180deg);
+    color: #fff;
+  }
+
+  .sage-card .flip-front{ background: var(--sage-tint); }
+  .sage-card .flip-back{ background: var(--sage); }
+  .berry-card .flip-front{ background: var(--berry-tint); }
+  .berry-card .flip-back{ background: var(--berry); }
+
+  .card-tag{
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .sage-card .flip-front .card-tag{ color: var(--sage); }
+  .berry-card .flip-front .card-tag{ color: var(--berry); }
+  .flip-back .card-tag{ color: rgba(255,255,255,0.75); }
+
+  .card-letter{
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .sage-card .flip-front .card-letter{ color: var(--sage); }
+  .berry-card .flip-front .card-letter{ color: var(--berry); }
+  .flip-back .card-letter{ color: #fff; }
+
+  .card-word{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+
+  .card-def{
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    flex-grow: 1;
+  }
+  .flip-back .card-def{ color: rgba(255,255,255,0.94); font-style: italic; }
+
+  .flip-hint{
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    margin-top: auto;
+    padding-top: 8px;
+  }
+  .flip-front .flip-hint{ color: var(--ink-soft); }
+  .flip-back .flip-hint{ color: rgba(255,255,255,0.7); }
+
+  /* ---------- CALLOUT / NOTE BOXES ---------- */
+  .callout{
+    background: var(--sage-tint);
+    border-left: 4px solid var(--sage);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 26px 0;
+  }
+  .callout .label{
+    font-weight: 800;
+    color: var(--sage);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    margin-bottom: 8px;
+    display:block;
+  }
+  .callout p{ margin: 0 0 10px; }
+  .callout p:last-child{ margin-bottom: 0; }
+
+  .note{
+    background: var(--gold-tint);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 22px 24px;
+    margin: 26px 0;
+  }
+  .note .label{
+    font-weight: 800;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    margin-bottom: 8px;
+    display:block;
+  }
+  .note p{ margin: 0 0 10px; }
+  .note p:last-child{ margin-bottom: 0; }
+
+  /* ---------- REFERENCES ---------- */
+  .refs-card{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 26px 28px;
+    margin-top: 22px;
+  }
+  .refs-card h3{
+    font-size: 1.05rem;
+    margin: 0 0 14px;
+    font-weight: 600;
+  }
+  .refs-card ol{
+    margin: 0;
+    padding-left: 20px;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .refs-card li{ margin-bottom: 10px; }
+  .refs-card li:last-child{ margin-bottom: 0; }
+
+  a.cite{
+    color: var(--sage);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0 1px;
+  }
+  a.cite:hover{ text-decoration: underline; }
+
+  .back-to-top{
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--sage);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .back-to-top:hover{ text-decoration: underline; }
+
+  /* ---------- CLOSING BANNER ---------- */
+  .closing{
+    background: var(--sage);
+    color: #fff;
+    text-align: center;
+    padding: 52px 24px;
+    margin-top: 70px;
+  }
+  .closing p.big{
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    font-style: italic;
+    max-width: 620px;
+    margin: 0 auto 10px;
+    line-height: 1.4;
+  }
+  .closing p.small{
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  @media (max-width: 560px){
+    .wrap{ padding: 48px 18px 20px; }
+    .flip-card{ height: 250px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <span class="eyebrow">DBT · Interpersonal Effectiveness</span>
+    <h1>Asking for what you need, <em>while remember why you care</em></h1>
+    <p class="sub">Most of us were never taught how to ask for something directly, say no and mean it, or stay close to someone while doing either.</p>
+  </div>
+
+  <!-- INTRO -->
+  <section class="block">
+    <span class="tag">a note before we begin</span>
+    <h2 class="section-title">Two goals, and why they can pull against each other</h2>
+
+    <div class="card">
+      <p>People who struggle in relationships often fall into one of two patterns: they get what they want but damage the relationship in the process, or they protect the relationship and ignore their own needs, often ending up with growing resentment.</p>
+      <p>Interpersonal effectiveness in DBT teaches two important skills that can work together. <strong>DEAR MAN</strong> is for the objective — the thing being asked for or refused. <strong>GIVE</strong> is for the relationship — the person being asked, and what happens to the bond with them afterward. Sometimes, both will feel equally important. Sometimes, you'll prioritize one over the other. A lot of us go through life on auto pilot not realizing that this is a choice, but it is. You get decide your approach.</p>
+    </div>
+  </section>
+
+  <!-- DEARMAN -->
+  <section class="block">
+    <span class="tag">objectives effectiveness</span>
+    <h2 class="section-title">DEAR MAN — getting what you want, asking clearly</h2>
+
+    <div class="card">
+      <p>DEAR MAN is designed as a sequence, not a menu of options. Describing the situation comes before expressing feelings about it, because a feeling without a fact underneath it is easy to dismiss. Expressing comes before asking, because people are far more willing to give something once they understand why it matters to the person asking. Asserting comes next, saying specifically what you want in clear words, followed by holding that position while negotiating the edges.</p>
+      <p>Skipping straight to asserting is a common shortcut, and it often leads to being stonewalled. The order matters because it's the order that tends to work on an actual nervous system, on both sides of the conversation.</p>
+    </div>
+
+    <div class="flip-grid">
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: Describe">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">D</div>
+            <div class="card-word">Describe</div>
+            <p class="card-def">State the facts of the situation. No mind-reading, no labels — just what happened.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What you might say</span>
+            <p class="card-def">"You've been about twenty minutes late the last three times we've met up for dinner."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: Express">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">E</div>
+            <div class="card-word">Express</div>
+            <p class="card-def">Say your feeling(s) out loud. Don't assume it's obvious. You can also share opinions here, but feelings are the priority.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What you might say</span>
+            <p class="card-def">"I feel a little brushed off when that happens, because our time together is important to me."</p>
+            <p class="card-def expand-note" style="font-size:0.75rem; font-style:normal; opacity:0.85; margin-top:8px; display:none;">*You might share more vulnerable feelings (lonely, abandoned, hurt) with someone you're closer with, like family or a close friend, and less vulnerable feelings (confused, disappointed, frustrated) with an acquaintance or coworker.</p>
+            <button type="button" class="expand-btn" data-expand-toggle>Show more</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: Assert">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">A</div>
+            <div class="card-word">Assert</div>
+            <p class="card-def">Ask for what you want, or say no, without hedging it into invisibility. Be specific.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What you might say</span>
+            <p class="card-def">"I want you to stop putting me in that situation. Would you be willing to text with updates while you are getting ready so that I know when you are actually on the way?"</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: Reinforce">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">R</div>
+            <div class="card-word">Reinforce</div>
+            <p class="card-def">Tell them what's in it for them. Oftentimes, you are making the ask to protect the relationship long term. To stay close, connected.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What you might say</span>
+            <p class="card-def">"That way, I can stay back at my place if you are running late and be able to use that time for other things I want to do. It will also make me feel like you are considering my feelings."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: stay in the Moment">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">M</div>
+            <div class="card-word">(stay in the) Moment</div>
+            <p class="card-def">If their response doesn't address your ask, don't chase the tangent. Repeat your ask like a broken record if you have to.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What you might say</span>
+            <p class="card-def">"I know that last week was especially hectic for you, and I still think texting me while you are getting ready with updates on your ETA will make a difference going forward."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: Appear confident">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">A</div>
+            <div class="card-word">Appear confident</div>
+            <p class="card-def">Steady voice, steady eyes. Confidence is a posture you can adopt before you feel it.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What I might notice myself doing</span>
+            <p class="card-def">Keeping my voice level and my gaze on them, even while my stomach is doing something else entirely.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card sage-card" tabindex="0" role="button" aria-label="Flip card: Negotiate">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Objective skill</span>
+            <div class="card-letter">N</div>
+            <div class="card-word">Negotiate</div>
+            <p class="card-def">Be prepared to offer some flexibility, once you take into account their perspective. Give to get. If stuck, try handing the problem back: "what do you think would work?"</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What you might say</span>
+            <p class="card-def">"If you don't think you can do that, maybe we should just hang at each other's houses for a while, or pick each other up before dinner. What do you think would be more doable?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIVE -->
+  <section class="block">
+    <span class="tag">relationship effectiveness</span>
+    <h2 class="section-title">GIVE — keeping the relationship intact</h2>
+
+    <div class="card">
+      <p>GIVE runs at the same time as DEAR MAN, not after it. It's the tone underneath the words. The exact same request, made with GIVE or without it, can produce a completely different relationship on the other side — even when the answer is identical.</p>
+      <p>This is the piece that tends to get skipped in anger and overdone out of fear of conflict. Used well, it doesn't soften the ask — it just keeps the door open after the ask has been made.</p>
+    </div>
+
+    <div class="flip-grid">
+      <div class="flip-card berry-card" tabindex="0" role="button" aria-label="Flip card: be Gentle">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Relationship skill</span>
+            <div class="card-letter">G</div>
+            <div class="card-word">(be) Gentle</div>
+            <p class="card-def">No attacks, no threats, no eye-rolling. Say the hard thing calmly and stay in the room.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What I might say</span>
+            <p class="card-def">"I felt disappointed you didn't call on my birthday" — not "you never think about anyone but yourself."</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card berry-card" tabindex="0" role="button" aria-label="Flip card: act Interested">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Relationship skill</span>
+            <div class="card-letter">I</div>
+            <div class="card-word">(act) Interested</div>
+            <p class="card-def">Listen like you mean it. Face them, don't interrupt, let them finish before you respond.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What that looks like</span>
+            <p class="card-def">Putting the phone down, facing them, and asking "what happened next?" instead of jumping to my own story.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card berry-card" tabindex="0" role="button" aria-label="Flip card: Validate">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Relationship skill</span>
+            <div class="card-letter">V</div>
+            <div class="card-word">Validate</div>
+            <p class="card-def">Say what you see from their side, out loud. Validating isn't agreeing — it's acknowledging.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What I might say</span>
+            <p class="card-def">"I can see why that would be frustrating for you" — even if I still need to ask for something different.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card berry-card" tabindex="0" role="button" aria-label="Flip card: use an Easy manner">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <span class="card-tag">Relationship skill</span>
+            <div class="card-letter">E</div>
+            <div class="card-word">(use an) Easy manner</div>
+            <p class="card-def">A little lightness. Soft sell over hard sell. Leave the attitude at the door.</p>
+            <span class="flip-hint">Tap for example ↻</span>
+          </div>
+          <div class="flip-face flip-back">
+            <span class="card-tag">What I might say</span>
+            <p class="card-def">"I'd love to, but I've already got plans that night — let's find another time though!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <span class="label">In short</span>
+    <p>DEAR MAN gets you the thing. GIVE keeps the person. Run them together, and you can hold both — most of the time.</p>
+    <p>If you notice yourself circling a request for hours before you ever send it, that rumination is costing you resources you'll need later, for the response. Try writing a rough draft quickly, then handing it to an LLM like Claude or ChatGPT and asking it to evaluate the draft from the perspective of a DBT therapist with expertise in assertive, effective communication. It's a fast way to sharpen the ask without spending your whole evening on it.</p>
+  </div>
+
+  <!-- NOTE -->
+  <div class="note">
+    <span class="label">A caveat</span>
+    <p>DEAR MAN and GIVE are not a guarantee — they're a way of stacking the odds in your favor. Sometimes the relationship has to take priority and you'll ask for less than you want. Sometimes the objective has to take priority and the relationship will feel some friction. That's a judgment call you make on purpose, not a failure of the skill.</p>
+    <p>And "broken record" is not the same as escalating. If the other person attacks or threatens, the instruction is to ignore the bait and keep restating your point — calmly, not louder.</p>
+  </div>
+
+  <!-- REFERENCES -->
+  <section class="block">
+    <span class="tag">where this comes from</span>
+    <h2 class="section-title">References</h2>
+    <div class="refs-card">
+      <ol>
+        <li id="ref1">Linehan, M. M. (2014). <em>DBT Skills Training Manual</em> (2nd ed.). Guilford Press.</li>
+        <li id="ref2">Linehan, M. M. (1993). <em>Skills Training Manual for Treating Borderline Personality Disorder</em>. Guilford Press.</li>
+        <li id="ref3">Linehan, M. M. (2014). <em>DBT Skills Training Handouts and Worksheets</em> (2nd ed.). Guilford Press.</li>
+      </ol>
+      <a href="#top" class="back-to-top">↑ back to top of references</a>
+      <p style="margin: 18px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--ink-soft); font-style: italic;">These skills were first developed for people with borderline personality disorder, but they tend to be useful for just about anyone navigating relationships.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- CLOSING BANNER -->
+<div class="closing">
+  <p class="big">You are allowed to ask for what you need and stay someone people want to be close to. That was always the point.</p>
+  <p class="small">— M.M.L.</p>
+</div>
+
+<script>
+  document.querySelectorAll('.flip-card').forEach(function(card){
+    function toggleFlip(){ card.classList.toggle('flipped'); }
+    card.addEventListener('click', toggleFlip);
+    card.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggleFlip();
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-expand-toggle]').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var card = btn.closest('.flip-card');
+      var note = btn.parentElement.querySelector('.expand-note');
+      var isExpanded = card.classList.toggle('expanded');
+      if(note){ note.style.display = isExpanded ? 'block' : 'none'; }
+      btn.textContent = isExpanded ? 'Show less' : 'Show more';
+    });
+  });
+</script>
+
+</body>
+</html>
