@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tonic Immobility in Sexual Assault: Clinical & Research Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #F4F7FA;
+    --paper: #FFFFFF;
+    --ink-primary: #0F172A;
+    --ink-secondary: #334155;
+    --ink-muted: #64748B;
+    --blue-deep: #1E3A8A;
+    --blue-mid: #2563EB;
+    --blue-light: #DBEAFE;
+    --blue-tint: #EFF6FF;
+    --slate-dark: #1E293B;
+    --slate-light: #F1F5F9;
+    --border: #E2E8F0;
+    --shadow: 0 4px 12px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background-color: var(--bg-main);
+    color: var(--ink-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    padding: 36px 16px 80px;
+  }
+
+  .wrap { max-width: 1040px; margin: 0 auto; }
+
+  /* ---------- HERO HEADER ---------- */
+  .hero {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: var(--shadow);
+    margin-bottom: 32px;
+    border-top: 5px solid var(--blue-deep);
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue-deep);
+    background: var(--blue-tint);
+    border: 1px solid var(--blue-light);
+    padding: 4px 12px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 600;
+    color: var(--ink-primary);
+    margin: 0 0 12px;
+    line-height: 1.25;
+  }
+  .hero p {
+    color: var(--ink-secondary);
+    font-size: 15.5px;
+    margin: 0;
+    max-width: 880px;
+  }
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .section { margin-top: 44px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-head .tag {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blue-mid);
+  }
+  .section-head h2 {
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ink-primary);
+    margin: 0;
+  }
+  .section-sub {
+    margin: 0 0 20px;
+    color: var(--ink-muted);
+    font-size: 14px;
+  }
+
+  /* ---------- INTERACTIVE FLIP CARDS ---------- */
+  .flip-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .flip-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 840px) { .flip-grid, .flip-grid-2 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .flip-grid, .flip-grid-2 { grid-template-columns: 1fr; } }
+
+  .flip-card {
+    perspective: 1200px;
+    height: 270px;
+    cursor: pointer;
+  }
+  .flip-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.5s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
+  .flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+  
+  .flip-face {
+    position: absolute; inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .flip-front {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--blue-mid);
+  }
+  .flip-front .card-title {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--slate-dark);
+    margin-bottom: 6px;
+  }
+  .flip-front .card-stat {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin: 8px 0;
+  }
+  .flip-front .card-desc {
+    font-size: 13.5px;
+    color: var(--ink-secondary);
+    line-height: 1.4;
+  }
+  .flip-front .tap-hint {
+    align-self: flex-end;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--blue-mid);
+  }
+
+  .flip-back {
+    background: var(--slate-dark);
+    color: #FFFFFF;
+    transform: rotateY(180deg);
+    justify-content: flex-start;
+    border: 1px solid var(--slate-dark);
+    overflow-y: auto;
+  }
+  .flip-back.tone-blue {
+    background: var(--blue-deep);
+    border-color: var(--blue-deep);
+  }
+  .flip-back .back-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blue-light);
+    margin-bottom: 8px;
+  }
+  .flip-back p {
+    margin: 0 0 8px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: #E2E8F0;
+  }
+
+  /* Custom scrollbar for card backs */
+  .flip-back::-webkit-scrollbar { width: 5px; }
+  .flip-back::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+  .flip-back::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+  /* ---------- DATA TABLES & CALLOUTS ---------- */
+  .callout-box {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue-mid);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--ink-secondary);
+  }
+  .callout-box strong { color: var(--ink-primary); }
+
+  /* ---------- REFERENCES SECTION ---------- */
+  .references {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-top: 52px;
+    box-shadow: var(--shadow);
+  }
+  .references h3 {
+    font-family: 'Lora', serif;
+    font-size: 18px;
+    margin: 0 0 16px;
+    color: var(--ink-primary);
+  }
+  .ref-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 12.5px;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+  }
+  .ref-list li { margin-bottom: 10px; }
+
+  /* CITES / SUPERSCRIPTS */
+  sup {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--blue-mid);
+    padding: 0 1px;
+  }
+  .flip-back sup {
+    color: var(--blue-light);
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="hero">
+    <div class="eyebrow">Clinical & Research Synthesis</div>
+    <h1>Tonic Immobility During Sexual Assault</h1>
+    <p>A neurobiological, epidemiological, and clinical summary examining peritraumatic defensive responses, psychiatric risk outcomes, and the integration of resistance programs for expert practitioners.</p>
+  </header>
+
+  <!-- SECTION 1: DEFINING TI VS FREEZING -->
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">01. Neurobiology</span>
+      <h2>Defensive Cascade: Freezing vs. Tonic Immobility</h2>
+    </div>
+    <p class="section-sub">The defensive cascade describes a continuum of involuntary responses to threat (fight/flight, freezing, tonic immobility) with distinct neurobiological signatures<sup>11,12</sup>. Click any card to view detailed physiological criteria.</p>
+
+    <div class="flip-grid">
+      
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Brief Freezing</div>
+              <div class="card-stat">Action Preparation</div>
+              <div class="card-desc">Early-stage parasympathetic response facilitating threat assessment and potential fight/flight.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="back-label">Physiology & Neurobiology</div>
+            <p><strong>Autonomic profile:</strong> Parasympathetically driven bradycardia and temporary motor inhibition<sup>10,11</sup>.</p>
+            <p><strong>Function:</strong> A flexible "action preparation" state functioning as a parasympathetic brake to support perception and decision-making<sup>10</sup>.</p>
+            <p><strong>Circuitry:</strong> Fronto-amygdala connections permit shifting to active defense<sup>7,10</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Tonic Immobility (TI)</div>
+              <div class="card-stat">Involuntary Paralysis</div>
+              <div class="card-desc">Late-stage, inescapable defense response characterized by profound motor and vocal inhibition.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back tone-blue">
+            <div class="back-label">Physiology & Neurobiology</div>
+            <p><strong>Autonomic profile:</strong> Sympathetically driven tachycardia, waxy hypertonicity, analgesia, and vocal suppression<sup>11,12</sup>.</p>
+            <p><strong>Function:</strong> Involuntary "last resort" response when active escape is perceived as futile<sup>11,12</sup>.</p>
+            <p><strong>Circuitry:</strong> Loss of fronto-amygdala flexibility via deep periaqueductal gray (PAG) activation<sup>7,10</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">3-Factor TIS Model</div>
+              <div class="card-stat">Psychometric Distinction</div>
+              <div class="card-desc">Validates TI as distinct from emotional fear and peritraumatic dissociation.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="back-label">Measurement Insights</div>
+            <p>Factor analyses of the Tonic Immobility Scale (TIS) isolate three separable components<sup>1,12</sup>:</p>
+            <p>1. <strong>Motor Immobility</strong> (true physical paralysis)</p>
+            <p>2. <strong>Peritraumatic Fear</strong></p>
+            <p>3. <strong>Detachment / Dissociation</strong></p>
+            <p>Prevents conflation of motor inhibition with dissociative phenomena<sup>1</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: FREQUENCY & EPIDEMIOLOGY -->
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">02. Prevalence</span>
+      <h2>Epidemiological & Clinical Prevalence</h2>
+    </div>
+    <p class="section-sub">Consistently high prevalence reported across prospective, clinical, and population-based cohorts. Click cards for study breakdowns and methodological nuances.</p>
+
+    <div class="flip-grid">
+
+      <!-- UPDATED PREVALENCE CARD WITH ~50-70% ON FRONT -->
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">TI Prevalence Range</div>
+              <div class="card-stat">~50–70%</div>
+              <div class="card-desc">Across clinical, PTSD, child abuse, and population-based studies, immobility reactions are consistently frequent during sexual assault.</div>
+            </div>
+            <div class="tap-hint">Breakdown ↻</div>
+          </div>
+          <div class="flip-face flip-back tone-blue">
+            <div class="back-label">Study-by-Study Breakdown</div>
+            <p>• <strong>Emergency Rape Clinic Cohort (n=298):</strong> 70% reported significant TI; 48% reported extreme TI within 1 month post-assault<sup>3</sup>.</p>
+            <p>• <strong>Chronic PTSD Sample (n=184):</strong> 78.8% reported peritraumatic TI (52.2% extreme, 26.6% moderate); 72.3% reported TI re-occurring during trauma reminders<sup>9</sup>.</p>
+            <p>• <strong>Childhood Sexual Abuse Survivors:</strong> ~52% recalled experiencing TI during their original trauma<sup>4,12</sup>.</p>
+            <p>• <strong>Population-Based Sample (n=3,231):</strong> Sexual trauma had the lowest proportion of total TI absence; TI scores were ~2x higher than for non-sexual trauma<sup>4</sup>.</p>
+            <p>• <strong>Meta-Analytic Review (27 studies):</strong> Characterized TI as a frequent peritraumatic response, more severe in females (Cohen's d=0.37)<sup>1</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Measurement & Duration Gap</div>
+              <div class="card-stat">Freeze vs. Sustained TI</div>
+              <div class="card-desc">Current tools measure occurrence and intensity, but fail to systematically quantify duration.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="back-label">Methodological Gap</div>
+            <p>The TIS captures whether TI occurred and its intensity, but does not systematically measure duration<sup>1,3</sup>.</p>
+            <p>Consequently, the precise proportion of victims who experience momentary freeze (which can resolve into active action) versus prolonged TI (which precludes resistance) remains an unresolved empirical question<sup>1,10</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Methodological Limitations</div>
+              <div class="card-stat">Self-Report & Sampling</div>
+              <div class="card-desc">Considerations regarding retrospective measures, clinical sample selection, and experimental constraints.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="back-label">Study Considerations</div>
+            <p>• <strong>Retrospective Recall:</strong> Nearly all studies rely on retrospective self-report via TIS, introducing recall bias<sup>1-3</sup>.</p>
+            <p>• <strong>Sample Selection:</strong> Treatment-seeking clinical samples may overrepresent severe reactions (partially mitigated by population data)<sup>3,4</sup>.</p>
+            <p>• <strong>Experimental Limits:</strong> Experimental human TI is limited; corroborating evidence relies on sway and HRV metrics<sup>12</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout-box">
+      <strong>Synthesis on Prevalence:</strong> While methodological limitations exist (e.g., retrospective self-report and sample selection), no published study has directly demonstrated that high prevalence figures are overestimates. Across both clinical and general population samples, sexual violence is more strongly linked to tonic immobility than any other trauma type<sup>4</sup>.
+    </div>
+  </section>
+
+  <!-- SECTION 3: PREDICTORS & OUTCOMES -->
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">03. Predictors & Outcomes</span>
+      <h2>Predictors & Adverse Psychiatric Outcomes</h2>
+    </div>
+    <p class="section-sub">Risk factors for TI endorsement and longitudinal mental health sequelae. Click to examine effect sizes and odds ratios.</p>
+
+    <div class="flip-grid-2 flip-grid">
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Contextual & Individual Predictors</div>
+              <div class="card-stat">OR 2.00 – 2.36</div>
+              <div class="card-desc">Key pre-trauma and situational variables that significantly elevate TI probability.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="back-label">Statistical Predictors</div>
+            <p>• <strong>Prior Trauma History:</strong> OR = 2.36 (95% CI 1.48–3.77)<sup>3</sup>.</p>
+            <p>• <strong>Prior Psychiatric Treatment:</strong> OR = 2.00 (95% CI 1.26–3.19)<sup>3</sup>.</p>
+            <p>• <strong>Trauma Subtype:</strong> Childhood sexual abuse (CSA) yields the strongest association (~52% recall TI)<sup>4,12</sup>.</p>
+            <p>• <strong>Perceived Entrapment:</strong> Heightened inescapable threat triggers deep PAG-mediated immobility<sup>7,11</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Psychiatric Outcomes at 6 Months</div>
+              <div class="card-stat">Elevated PTSD & Depression</div>
+              <div class="card-desc">Longitudinal impact on posttraumatic recovery, self-blame, and reporting behavior.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back tone-blue">
+            <div class="back-label">Clinical Sequelae</div>
+            <p>• <strong>PTSD at 6 Months:</strong> OR = 2.75 (95% CI 1.50–5.03)<sup>3</sup>; meta-analytic correlation r = 0.39<sup>1</sup>.</p>
+            <p>• <strong>Severe Depression:</strong> OR = 3.42 (95% CI 1.51–7.72)<sup>3</sup>.</p>
+            <p>• <strong>Cognitions & Dissociation:</strong> Longitudinally predicts negative cognitions (β=0.22) and dissociation (β=0.65)<sup>1,9</sup>.</p>
+            <p>• <strong>Self-Blame:</strong> Mediates the link between TI and PTSD severity<sup>13</sup>; victims who froze are also less likely to report to law enforcement<sup>2</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: RESISTANCE & EAAA PROGRAM -->
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">04. Prevention Literature</span>
+      <h2>Resistance Literature & The EAAA Program</h2>
+    </div>
+    <p class="section-sub">Empirical evidence regarding active resistance efficacy and structured prevention programs.</p>
+
+    <div class="flip-grid-2 flip-grid">
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">Active Resistance Meta-Analysis</div>
+              <div class="card-stat">Rape Avoidance</div>
+              <div class="card-desc">Meta-analytic data on the impact of physical and verbal resistance strategies.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back">
+            <div class="back-label">Efficacy Data</div>
+            <p>• Systematic reviews show women who resist are significantly more likely to avoid completed rape<sup>5</sup>.</p>
+            <p>• Forceful physical/verbal resistance and fleeing correlate with rape avoidance; nonforceful or no resistance correlates with completion<sup>5</sup>.</p>
+            <p>• NCVS and meta-analytic data confirm self-protection actions do <strong>not</strong> increase risk of additional physical injury<sup>5</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-inner">
+          <div class="flip-face flip-front">
+            <div>
+              <div class="card-title">EAAA Intervention RCT</div>
+              <div class="card-stat">46.3% Reduction</div>
+              <div class="card-desc">Enhanced Assess, Acknowledge, Act program trial among university women (n=893)<sup>6,8</sup>.</div>
+            </div>
+            <div class="tap-hint">Details ↻</div>
+          </div>
+          <div class="flip-face flip-back tone-blue">
+            <div class="back-label">RCT Trial Outcomes</div>
+            <p>• <strong>Completed Rape:</strong> Reduced by 46.3% (5.2% vs 9.8%; NNE=22)<sup>6</sup>.</p>
+            <p>• <strong>Attempted Rape:</strong> Reduced by 63.2% (3.4% vs 9.3%)<sup>6</sup>.</p>
+            <p>• <strong>Persistence:</strong> Significant reductions (30–64%) maintained at 2-year follow-up<sup>8</sup>.</p>
+            <p>• <strong>Mechanism:</strong> Intervenes early in threat assessment before the defensive cascade reaches the TI threshold<sup>6,11</sup>.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5: CLINICAL SYNTHESIS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="tag">05. Synthesis</span>
+      <h2>Clinical & Research Integration</h2>
+    </div>
+    <div class="callout-box" style="border-left-color: var(--blue-deep); background: #FFFFFF;">
+      <p style="margin: 0 0 10px;"><strong>Integrating Resistance and Biological Immobility:</strong></p>
+      <ol style="margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.6;">
+        <li><strong>Complementary Stages:</strong> Resistance training (e.g., EAAA) enhances pre-assault risk detection and early action, interrupting assaults prior to overwhelming threat<sup>6</sup>. However, when inescapable threat or physical overpowering occurs, involuntary TI is triggered<sup>11,12</sup>.</li>
+        <li><strong>Adaptive Utility:</strong> FBI and clinical data indicate that physical/verbal immobility can be protective against severe physical injury or mortality in brutal assaults<sup>2,12</sup>.</li>
+        <li><strong>Mitigating Self-Blame:</strong> Clinicians must educate survivors that TI is a neurobiologically hardwired survival circuit<sup>7,12</sup>. Overemphasizing resistance can exacerbate posttraumatic self-blame—a key mediator of PTSD severity<sup>13</sup>.</li>
+        <li><strong>Balanced Communication:</strong> Clinicians and researchers should validate TI as a normal, involuntary biological response while supporting evidence-based risk-reduction programs<sup>3,6,13</sup>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- REFERENCES -->
+  <footer class="references">
+    <h3>References</h3>
+    <ol class="ref-list">
+      <li>Coimbra BM, Hoeboer CM, van Zuiden M, et al. The Relationship Between Tonic Immobility and the Development, Severity, and Course of Posttraumatic Stress Disorder: Systematic and Meta-Analytic Literature Review. <em>Journal of Anxiety Disorders</em>. 2023.</li>
+      <li>de la Torre Laso J. The Reality of Tonic Immobility in Victims of Sexual Violence: "I Was Paralyzed, I Couldn't Move". <em>Trauma, Violence & Abuse</em>. 2024.</li>
+      <li>Möller A, Söndergaard HP, Helström L. Tonic Immobility During Sexual Assault - a Common Reaction Predicting Post-Traumatic Stress Disorder and Severe Depression. <em>Acta Obstetricia Et Gynecologica Scandinavica</em>. 2017.</li>
+      <li>Kalaf J, Coutinho ESF, Vilete LMP, et al. Sexual Trauma Is More Strongly Associated With Tonic Immobility Than Other Types of Trauma - A Population Based Study. <em>Journal of Affective Disorders</em>. 2017.</li>
+      <li>Wong JS, Balemba S. The Effect of Victim Resistance on Rape Completion: A Meta-Analysis. <em>Trauma, Violence & Abuse</em>. 2018.</li>
+      <li>Senn CY, Eliasziw M, Barata PC, et al. Efficacy of a Sexual Assault Resistance Program for University Women. <em>The New England Journal of Medicine</em>. 2015.</li>
+      <li>Terpou BA, Harricharan S, McKinnon MC, et al. The effects of trauma on brain and body: A unifying role for the midbrain periaqueductal gray. <em>Journal of Neuroscience Research</em>. 2019.</li>
+      <li>Senn CY, Eliasziw M, Hobden KL, et al. Secondary and 2-Year Outcomes of a Sexual Assault Resistance Program for University Women. <em>Psychology of Women Quarterly</em>. 2017.</li>
+      <li>de Kleine RA, Hagenaars MA, van Minnen A. Tonic Immobility During Re-Experiencing the Traumatic Event in Posttraumatic Stress Disorder. <em>Psychiatry Research</em>. 2018.</li>
+      <li>Roelofs K. Freeze for Action: Neurobiological Mechanisms in Animal and Human Freezing. <em>Philosophical Transactions of the Royal Society of London. Series B, Biological Sciences</em>. 2017.</li>
+      <li>Kozlowska K, Walker P, McLean L, Carrive P. Fear and the Defense Cascade: Clinical Implications and Management. <em>Harvard Review of Psychiatry</em>. 2015.</li>
+      <li>Volchan E, Rocha-Rego V, Bastos AF, et al. Immobility Reactions Under Threat: A Contribution to Human Defensive Cascade and PTSD. <em>Neuroscience and Biobehavioral Reviews</em>. 2017.</li>
+      <li>Yadav C, Herres J. Self-Blame Mediates the Link Between Tonic Immobility Experienced During Campus Sexual Assault and PTSD Symptoms. <em>Journal of Interpersonal Violence</em>. 2026.</li>
+    </ol>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.flip-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      card.classList.toggle('flipped');
+    });
+  });
+</script>
+
+</body>
+</html>
